@@ -1,12 +1,12 @@
-package com.trigo.scrapeandnoti.crawling;
+package com.trigo.scrapeandnoti.scrape;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.resource.HttpResource;
 
 @Controller
-public class CrawlingController {
+public class ScrapeController {
 
     @GetMapping("init")
     ModelAndView init(){
@@ -14,4 +14,5 @@ public class CrawlingController {
         mv.setViewName("init.html");
         return mv;
     }
+
 }
