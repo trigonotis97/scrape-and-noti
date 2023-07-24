@@ -10,4 +10,5 @@ class ScrapeAndNotiApplicationTests {
     void contextLoads() {
     }
 
+
 }
