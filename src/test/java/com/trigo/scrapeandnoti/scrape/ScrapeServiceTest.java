@@ -15,6 +15,9 @@ class ScrapeServiceTest {
 
         Document out = Mockito.mock(ScrapeService.class).getText();
         System.out.println(out);
+        System.out.println(out.toString());
+
+        Object obj =   Mockito.mock(ScrapeService.class);
         assertNotNull(out);
 
     }
