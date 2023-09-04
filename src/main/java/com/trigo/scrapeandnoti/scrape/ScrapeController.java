@@ -28,7 +28,7 @@ public class ScrapeController {
     }
 
     @GetMapping("gitText")
-    ModelAndView getGitText() throws IOException {
+    ModelAndView getText() throws IOException {
         ModelAndView mv = new ModelAndView();
         mv.setViewName  ("viewText.html");
         mv.addObject("result",scrapeService.getText("http://github.com/trigonotis97"));
