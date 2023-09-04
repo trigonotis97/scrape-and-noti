@@ -23,8 +23,24 @@ public class ScrapeController {
     ModelAndView getTextFromUrl() throws IOException {
         ModelAndView mv = new ModelAndView();
          mv.setViewName  ("viewText.html");
-         mv.addObject("result",scrapeService.getText());
+         mv.addObject("result",scrapeService.getText("http://github.com/trigonotis97"));
        return mv;
+    }
+
+    @GetMapping("gitText")
+    ModelAndView getGitText() throws IOException {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName  ("viewText.html");
+        mv.addObject("result",scrapeService.getText("http://github.com/trigonotis97"));
+        return mv;
+    }
+
+    //TODO : 가장 최근 커밋일 찾아오기
+    ModelAndView getGitText() throws IOException {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName  ("viewText.html");
+        mv.addObject("result",scrapeService.getText("http://github.com/trigonotis97"));
+        return mv;
     }
 
 }

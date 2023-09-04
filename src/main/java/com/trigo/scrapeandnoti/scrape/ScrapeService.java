@@ -20,8 +20,8 @@ public class ScrapeService {
          */
     }
 
-    public Document getText() throws IOException {
-        Document doc = Jsoup.connect("http://github.com/trigonotis97").get();
+    public Document getText(String url) throws IOException {
+        Document doc = Jsoup.connect(url).get();
 
         // Response로부터 Document 얻어오기
         Connection.Response response = Jsoup.connect("http://www.google.com")
