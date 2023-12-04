@@ -1,6 +1,14 @@
 package com.trigo.scrapeandnoti.scrape;
 
+import com.trigo.scrapeandnoti.noti.NotiService;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
@@ -51,16 +59,12 @@ public class CgvController {
             }
             """;
 
+
+    private final NotiService notiService;
+
     @GetMapping("/date")
     ModelAndView getDuneDate() throws IOException, XPathExpressionException, ParserConfigurationException, SAXException {
         ModelAndView mv = new ModelAndView();
-
-         /*
-        Connection.Response response = Jsoup.connect("http://www.google.com")
-                .method(Connection.Method.GET)
-                .execute();
-        System.out.println(response.toString());
-        */
         List<String> result = new ArrayList<>();
 
         try {
@@ -98,8 +102,12 @@ public class CgvController {
 
                 // TODO : xml to Listmap 으로 변경하기
                 Document doc = xmlStringToDoc(resultXml);
+                /*
                 List<Map<String, String>> nodes = fromNodeList(eval(doc, "//CSchedule"));
                 System.out.println(nodes);
+                 */
+                String dateList = xmlToCgvMovie(resultXml);
+                notiService.JANDIConnect(dateList);
                 System.out.println(resultXml);
 
                 System.out.println("====== 듄 상영일 목록 : ");
@@ -141,15 +149,15 @@ public class CgvController {
     }
 
     public List<Map<String, String>> fromNodeList(final NodeList nodes) {
-        final List<Map<String, String>> out = new ArrayList<Map<String, String>>();
+        final List<Map<String, String>> out = new ArrayList<>();
         int len = (nodes != null) ? nodes.getLength() : 0;
         for (int i = 0; i < len; i++) {
             NodeList children = nodes.item(i).getChildNodes();
-            Map<String, String> childMap = new HashMap<String, String>();
+            Map<String, String> childMap = new HashMap<>();
             for (int j = 0; j < children.getLength(); j++) {
                 Node child = children.item(j);
                 if (child.getNodeType() == Node.ELEMENT_NODE)
-                    childMap.put(child.getNodeName(), child.getTextContent());
+                childMap.put(child.getNodeName(), child.getTextContent());
             }
             out.add(childMap);
         }
@@ -174,5 +182,11 @@ public class CgvController {
         JSONObject root = jsonObject.getJSONObject("d");
         return root.getString(targetName);
     }
+    String xmlToCgvMovie(String xml) throws JAXBException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(CgvMovie.class);
+        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller(); // Unmarshaller Object 생성
+        StringReader reader = new StringReader(xml);
+        CgvMovie cgvMovie = (CgvMovie) unmarshaller.unmarshal(reader); // unmarshall 메소드 호출
+        return cgvMovie.getDateList();
+    }
 }
-
