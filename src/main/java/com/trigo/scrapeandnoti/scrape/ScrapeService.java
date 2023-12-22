@@ -24,12 +24,12 @@ public class ScrapeService {
          */
     }
 
-    private String requestBody = """
+    private String requestBody = """    
             {
               "REQSITE": "x02PG4EcdFrHKluSEQQh4A==",
               "TheaterCd": "LMP+XuzWskJLFG41YQ7HGA==",
               "ISNormal": "3y+GIXzg3xKpOjlKjH8+Fg==",
-              "MovieGroupCd": "b1DKm0QaGWBPUNyJbsSF1A==",
+              "MovieGroupCd": "b1DKm0QaGWBPUNyJbsSF1A==", 
               "ScreenRatingCd": "nG6tVgEQPGU2GvOIdnwTjg==",
               "MovieTypeCd": "nG6tVgEQPGU2GvOIdnwTjg==",
               "Subtitle_CD": "nG6tVgEQPGU2GvOIdnwTjg==",

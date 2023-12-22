@@ -189,4 +189,5 @@ public class CgvController {
         CgvMovie cgvMovie = (CgvMovie) unmarshaller.unmarshal(reader); // unmarshall 메소드 호출
         return cgvMovie.getDateList();
     }
+
 }
